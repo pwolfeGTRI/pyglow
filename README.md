@@ -12,21 +12,22 @@ Travis CI: [![Build Status](https://travis-ci.com/timduly4/pyglow.svg?branch=mas
 
 It includes the following upper atmospheric models:
 
-  * HWM 1993
-  * HWM 2007
-  * HWM 2014
-  * IGRF 11
-  * IGRF 12
-  * IRI 2012
-  * IRI 2016
-  * MSIS 2000
+* HWM 1993
+* HWM 2007
+* HWM 2014
+* IGRF 11
+* IGRF 12
+* IRI 2012
+* IRI 2016
+* MSIS 2000
 
 pyglow also provides access to the the following geophysical indices:
-  * AP
-  * Kp
-  * F10.7
-  * DST
-  * AE
+
+* AP
+* Kp
+* F10.7
+* DST
+* AE
 
 `pyglow` offers access to these models & indices in a convenient, high-level object-oriented interface within Python.
 
@@ -36,34 +37,36 @@ pyglow also provides access to the the following geophysical indices:
 
 1. `gfortran` (`$ sudo apt-get install gfortran`)
 2. `f2py` (`$ pip install numpy --upgrade`)
-3. Python packages listed in `requirements.txt` (`$ pip install -r requirements.txt`)
+3. `unzip` (`$ sudo apt-get install unzip`)
+4. Python packages listed in `requirements.txt` (`$ pip install -r requirements.txt`)
 
 # Installation
 
-### I'm Feeling Lucky:
+### I'm Feeling Lucky
 
 First, checkout the repository:
 
 ```
-$ git clone git://github.com/timduly4/pyglow.git pyglow
+git clone git://github.com/timduly4/pyglow.git pyglow
 ```
 
 Change directories into the repository folder, compile the f2py bindings, then install the Python package:
+
 ```
-$ cd pyglow/
-$ make -C src/pyglow/models source
-$ python3 setup.py install --user
+cd pyglow/
+make -C src/pyglow/models source
+python3 setup.py install --user
 ```
 
-### Trouble in downloading model files:
+### Trouble in downloading model files
 
 If you have problems downloading files from the official websites,  follow the next steps:
 
 (1) Create the local http server:
 
 ```
-$ cd static/
-$ python3 -m http.server 8080
+cd static/
+python3 -m http.server 8080
 ```
 
 (2) Edit the file `src/pyglow/models/Makefile`, replace the appropriate line with the following code:
@@ -76,29 +79,32 @@ download:
 (3) Compile the f2py bindings, then install the Python package:
 
 ```
-$ cd pyglow/
-$ make -C src/pyglow/models source
-$ python3 setup.py install --user
+cd pyglow/
+make -C src/pyglow/models source
+python3 setup.py install --user
 ```
 
 Note: The model files may not be latest.
 
-### Individual installation steps:
+### Individual installation steps
 
 If you have troubles, follow the individual installation steps:
 
 (1) Download the package:
+
 ```
-$ git clone git://github.com/timduly4/pyglow.git
-$ cd pyglow/
+git clone git://github.com/timduly4/pyglow.git
+cd pyglow/
 ```
 
 (2) Download the climatological models and wrap them with f2py:
+
 ```
-$ cd ./src/pyglow/models/
-$ make all
+cd ./src/pyglow/models/
+make all
 ```
-  * If successful, there should be a `*.so` file in each of the `./models/dl_models/<model>/` directories:
+
+* If successful, there should be a `*.so` file in each of the `./models/dl_models/<model>/` directories:
 
     ```
     $ find . -name "*.so"
@@ -113,24 +119,28 @@ $ make all
     ```
 
 (3) Install the Python package
+
 ```
-$ cd ../../../   # get back to root directory
-$ python3 setup.py install --user
+cd ../../../   # get back to root directory
+python3 setup.py install --user
 ```
-  * On a mac, the folder `pyglow` and `*.so` files from `./models/dl_models/<model>/` should be in `/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages`
-  * The `--user` flag installs the package locally (i.e., you do not need `sudo` access)
+
+* On a mac, the folder `pyglow` and `*.so` files from `./models/dl_models/<model>/` should be in `/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages`
+* The `--user` flag installs the package locally (i.e., you do not need `sudo` access)
 
 # Unit tests
 
-See unit tests in `./test`.  For example, run the unittest suite with:
+See unit tests in `./test`.  For example, run the unittest suite from the base pyglow folder with:
 
-`$ python3 -m unittest test.test_suite_pyglow`
+`coverage run --source src -m pytest test/`
 
 (Be sure that the f2py modules have been compiled via `$ make -C src/pyglow/models source`, first.)
 
 # Examples
 
 See example scripts located in `./examples` for example calls to `pyglow`.
+
+Note from Philip: (haven't gotten these all to work yet, the IRI fortran calls die in the middle of the python call. but unit test test_iri.py works for some reason. probably just need to update the way this is called maybe?)
 
 # Docker
 
@@ -147,10 +157,13 @@ Run the unit tests within the container via:
 # Hints
 
 ### General
+
 1. Use tab completion in ipython to view the full set of member data and variables available in the Point class.
-  * For example, in the test code, run `pt.<TAB><TAB>` and class information will be listed.
+
+* For example, in the test code, run `pt.<TAB><TAB>` and class information will be listed.
 
 ### Updating geophysical indices with `pyglow.update_indices()`
+
 You'll need to download the geophysical indices as they become available.  The `update_indices()` function is available in pyglow that enables you do this:
 
 ```
@@ -161,6 +174,7 @@ $ python3 -c "import pyglow; pyglow.update_indices(2016, 2018)"
 Note: you only need to run this function when you would like to update the indices.
 
 You can check if you have geophysical indices between dates with:
+
 ```
 $ python3 -c "import pyglow;  pyglow.check_stored_indices('2015-01-01', '2019-01-01')"
 
@@ -174,11 +188,14 @@ Checking: input date range:
 # Uninstallation
 
 The install directory for pyglow can be outputted via `python3 -c "import pyglow; print(pyglow.__file__)"`.  For example:
+
 ```
 ~ $ python3 -c "import pyglow; print(pyglow.__file__)"
 /Users/duly/Library/Python/3.7/lib/python/site-packages/pyglow/__init__.pyc
 ```
+
 This tells you the installation location, and then you can remove the package with:
+
 ```
 ~ $ rm -rf /Users/duly/Library/Python/3.7/lib/python/site-packages/pyglow
 ```
