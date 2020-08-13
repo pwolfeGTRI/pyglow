@@ -40,6 +40,8 @@ pyglow also provides access to the the following geophysical indices:
 3. `unzip` (`$ sudo apt-get install unzip`)
 4. Python packages listed in `requirements.txt` (`$ pip install -r requirements.txt`)
 
+**Note:** for windows graphics forwarding setup an x11 server like [vcxsrv](https://sourceforge.net/projects/vcxsrv/)
+
 # Installation
 
 ### I'm Feeling Lucky
