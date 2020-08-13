@@ -83,6 +83,9 @@ class IRI(object):
         :param f107a: User specified F107A
         """
 
+        print(f'running IRI version {version}')
+
+
         if version == 2016:
             iri_data_stub = 'iri16_data/'
             iri = iri16
@@ -174,12 +177,15 @@ class IRI(object):
             )
 
         # Change directories to data path:
+        print(f'changing directory to {iri_data_path}')
         os.chdir(iri_data_path)
 
+        print('initializing IRI')
         # Initalize IRI:
         init_iri()
 
         # Call f2py wrapper:
+        print(f'calling f2py wrapper (please don\'t die here)...')
         outf = iri(
             jf,
             0,
@@ -193,6 +199,9 @@ class IRI(object):
             1,
             oarr,
         )
+        print('Yay it didn\'t die!!!')
+
+        print(f'changing directory to {my_pwd}')
         os.chdir(my_pwd)
 
         # Densities [cm^-3]:

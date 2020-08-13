@@ -20,11 +20,14 @@ ag7774 = []
 for alt in alts:
     print("Computing alt={:3.1f} km...".format(alt))
     pt = pyglow.Point(dn, lat, lon, alt)
+    print('abount to call point class\'s run_airglow which calls iri which may fail...')
     pt.run_airglow()
+    print('yay it didn\'t actually die!')
     ag6300.append(pt.ag6300)
     ag7774.append(pt.ag7774)
 
 # Plot:
+print('debug msg here for actually getting to finally be able to plot stuff')
 plt.figure(1, figsize=(8, 8))
 plt.clf()
 plt.plot(
@@ -53,3 +56,5 @@ plt.title(
 plt.legend(loc=1, fontsize=10)
 plt.draw()
 plt.show()
+print('saving figure...')
+plt.savefig('test.png')

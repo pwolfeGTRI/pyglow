@@ -22,7 +22,9 @@ for alt in alts:
     print("Computing alt=%3.1f km..." % (alt))
     pt = pyglow.Point(dn, lat, lon, alt)
 
+    print('about to run iri pls don\'t fail...')
     pt.run_iri()  # default year is 2016
+    print('yay it didn\'t fail!')
     ne_2016.append(pt.ne)
 
     pt.run_iri(version=2012)  # Can revert back to 2012 model, if necessary.
